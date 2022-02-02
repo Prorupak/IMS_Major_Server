@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import APIError from '../../helpers/APIError.js';
+import ApiError from '../../utils/ApiError.js';
 import catchAsync from '../../utils/catchAsync.js';
 
 const CategoryService = require('../../services/Items/categories.service');

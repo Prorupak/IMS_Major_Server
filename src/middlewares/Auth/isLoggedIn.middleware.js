@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import ApiError from '../../utils/ApiError.js';
 import {} from '../../config/config.js';
-import {tokenService} from '../../services'
+import {tokenService} from '../../services/index.js'
 import User from '../../models/user.models.js';
 
 console.log('jwt=====', jwt);

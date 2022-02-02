@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
-const { roles } = require('../config/roles');
-
-const toJSON = require('./plugins/toJSON');
+import mongoose from 'mongoose';
+import validator from 'validator';
+import bcrypt from 'bcryptjs'
+import {roles} from '../config/roles.js';
+import toJSON from './plugins/toJSON.js';
 
 const UserSchema = new mongoose.Schema(
 

@@ -1,8 +1,12 @@
 import express from 'express'; 
 import userValidation from '../validations/user.validation.js';
 import {
-  createUser, getAllUsers, getUserById, updateUserById, deleteUserById,
-} from '../controllers/Auth/users.controllers.js'
+  createUser, 
+  getAllUsers,
+  getUserById,
+  updateUserById,
+  deleteUserById
+} from '../controllers/Auth/users.controllers.js';
  import validate from '../middlewares/Auth/validate.middlewares.js';
  import auth from '../middlewares/Auth/auth.middlewares.js';
 

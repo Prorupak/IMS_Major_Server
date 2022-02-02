@@ -1,19 +1,19 @@
-const express = require('express');
-const categoryController = require('../../controllers/Items/categories.controller');
-const validate = require('../../middlewares/Auth/validate.middlewares');
-const categoryValidation = require('../../validations/Items/categories.validations');
+import express from 'express';
+import categoriesController from '../../controllers/Items/categories.controller.js';
+import validate from '../../middlewares/Auth/validate.middlewares.js';
+import {categoriesValidation} from '../../validations/index.js';
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(validate(categoryValidation.createCategory), categoryController.createCategory)
-  .get(categoryController.getAllCategory);
+  .post(validate(categoriesValidation.createCategory), categoriesController.createCategory)
+  .get(categoriesController.getAllCategory);
 
 router
   .route('/:id')
-  .get(categoryController.getCategoryById)
-  .put(validate(categoryController.updateCategoryById), categoryController.updateCategoryById)
-  .delete(validate(categoryValidation.deleteCategoryById), categoryController.deleteCategoryById);
+  .get(categoriesController.getCategoryById)
+  .put(validate(categoriesController.updateCategoryById), categoriesController.updateCategoryById)
+  .delete(validate(categoriesValidation.deleteCategoryById), categoriesController.deleteCategoryById);
 
 export default router;

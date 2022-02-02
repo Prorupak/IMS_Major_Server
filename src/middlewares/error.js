@@ -5,7 +5,7 @@ import config from '../config/config.js';
 import logger from '../config/logger.js';
 import ApiError from '../utils/ApiError.js';
 
- const errorConverter = (err, req, res, next) => {
+ export const errorConverter = (err, req, res, next) => {
   let error = err;
   if (!(error instanceof ApiError)) {
     // eslint-disable-next-line max-len
@@ -19,7 +19,7 @@ import ApiError from '../utils/ApiError.js';
 /**
  * Get unique error field name
  */
- const uniqueMessage = (error) => {
+ export const uniqueMessage = (error) => {
   let output;
   try {
     const fieldName = error.message.substring(
@@ -39,7 +39,7 @@ import ApiError from '../utils/ApiError.js';
 /**
  * Get the erroror message from error object
  */
- const dbErrorHandler = (error) => {
+ export const dbErrorHandler = (error) => {
   let message = '';
 
   if (error.code) {
@@ -62,7 +62,7 @@ import ApiError from '../utils/ApiError.js';
 };
 
 // eslint-disable-next-line no-unused-vars
- const errorHandler = (err, req, res, next) => {
+ export const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
@@ -84,9 +84,3 @@ import ApiError from '../utils/ApiError.js';
   res.status(statusCode).send(response);
 };
 
-export default {
-  errorConverter,
-  dbErrorHandler,
-  errorHandler,
-
-};

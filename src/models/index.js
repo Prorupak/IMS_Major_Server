@@ -1,4 +1,4 @@
-module.exports.Token = require('./token.models');
-module.exports.User = require('./user.models');
-module.exports.Products = require('./Items/products.models');
-module.exports.categories = require('./Items/categories.models');
+export { default as Token } from './token.models.js';
+export { default as User } from './user.models.js';
+export { default as Products } from './Items/products.models.js';
+export { default as categories } from './Items/categories.models.js';

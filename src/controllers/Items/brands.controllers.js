@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync.js';
 import ApiError from '../../utils/ApiError.js';
-import BrandService from '../../services/Items/brands.service.js';
+import BrandService from '../../services/Items/brand.service.js';
 
 const createBrand = catchAsync(async (req, res) => {
   const brand = await BrandService.createBrand(req.body);
