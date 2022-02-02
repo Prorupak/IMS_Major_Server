@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const User = require('../../models/user.models');
-const ApiError = require('../../utils/ApiError');
+import httpStatus from 'http-status';
+import User from '../../models/user.models';
+import ApiError from '../../utils/ApiError.js';
 
 const createUser = async (userBody) => {
   // eslint-disable-next-line prefer-destructuring

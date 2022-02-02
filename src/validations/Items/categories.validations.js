@@ -1,8 +1,8 @@
-const Joi = require('joi');
-const { unitRules } = require('../../config/units');
-const { objectId } = require('../custom.validation');
+import Joi from 'joi';
+import {unitRules} from '../../config/units.js'
+import { objectId } from '../custom.validation.js';
 
-const createCategory = {
+export const createCategory = {
   body: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
@@ -19,7 +19,7 @@ const createCategory = {
   date: Joi.date().default(Date.now),
 };
 
-const getCategory = {
+export const getCategory = {
   query: Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string(),
@@ -36,7 +36,7 @@ const getCategory = {
 
 };
 
-const getCategoryById = {
+export const getCategoryById = {
   query: Joi.object().keys(
     {
       id: Joi.string().custom(objectId),
@@ -44,7 +44,7 @@ const getCategoryById = {
   ),
 };
 
-const updateCategoryById = {
+export const updateCategoryById = {
   params: Joi.object().keys(
     {
       id: Joi.string().custom(objectId),
@@ -68,7 +68,7 @@ const updateCategoryById = {
     .min(1),
 };
 
-const deleteCategoryById = {
+export const deleteCategoryById = {
   params: Joi.object().keys(
     {
       id: Joi.string(),
@@ -76,10 +76,3 @@ const deleteCategoryById = {
   ),
 };
 
-export default {
-  createCategory,
-  getCategory,
-  getCategoryById,
-  updateCategoryById,
-  deleteCategoryById,
-};

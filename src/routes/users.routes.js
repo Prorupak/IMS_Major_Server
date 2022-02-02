@@ -1,5 +1,11 @@
 import express from 'express'; 
-import userValidation from '../validations/user.validation.js';
+import {
+   createUser as addVal,
+   deleteUserById as deleteVal,
+   getUserById as byIdVal,
+   getUsers as getVal,
+   updateUserById as updateVal
+    } from '../validations/user.validation.js';
 import {
   createUser, 
   getAllUsers,
@@ -14,18 +20,13 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(validate(userValidation.createUser), createUser)
-  .get(getAllUsers);
+  .post(validate(addVal), createUser)
+  .get(validate(getVal), getAllUsers);
 
 router
   .route('/:userId')
-  .get(auth('getUsers'), validate(userValidation.getUserById), getUserById)
-  .patch(
-    // auth('manageUsers'),
-    validate(userValidation.updateUserById),
-
-    updateUserById,
-  )
-  .delete(auth('manageUsers'), validate(userValidation.deleteUserById), deleteUserById);
+  .get(auth('getUsers'), validate(byIdVal), getUserById)
+  .put(validate(updateVal), updateUserById, )
+  .delete(auth('manageUsers'), validate(deleteVal), deleteUserById);
 
 export default router;
