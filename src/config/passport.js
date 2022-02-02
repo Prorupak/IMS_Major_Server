@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const config = require('./config');
-const { tokenTypes } = require('./tokenTypes');
-const User = require('../models/user.models');
+import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
+import config from './config.js';
+import tokenTypes from './tokenTypes.js';
+import User from '../models/user.models.js';
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -31,29 +31,4 @@ const jwtVerify = async (payload, done) => {
 const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
 console.log(jwtOptions.secretOrKey);
 
-export default {
-  jwtStrategy,
-};
-
-// const { JwtStrategy } = require('passport-jwt').Strategy;
-// const { ExtractJwt } = require('passport-jwt').ExtractJwt;
-// const passport = require('passport');
-// const User = require('../models/user.models');
-
-// const opts = {};
-// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-// opts.secretOrKey = 'secret';
-// opts.issuer = 'accounts.examplesoft.com';
-// opts.audience = 'yoursite.net';
-// passport.use(new JwtStrategy(opts, ((jwt_payload, done) => {
-//   User.findOne({ id: jwt_payload.sub }, (err, user) => {
-//     if (err) {
-//       return done(err, false);
-//     }
-//     if (user) {
-//       return done(null, user);
-//     }
-//     return done(null, false);
-//     // or you could create a new account
-//   });
-// })));
+export default jwtStrategy;

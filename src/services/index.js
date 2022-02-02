@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
-export const  userService: require('./Auth/users.service'),
-  authService: require('./Auth/auth.service'),
-  tokenService: require('./Auth/token.service'),
-  adminService: require('./Auth/admin.service'),
-  products: require('./Items/products.service'),
-  categories: require('./Items/categories.service'),
+export { default as userService } from './Auth/users.service';
+export { default as authService } from './Auth/auth.service';
+export { default as tokenService } from './Auth/token.service';
+export { default as productsService } from './Auth/products.service';
+export { default as categoriesService } from './Auth/categories.service';

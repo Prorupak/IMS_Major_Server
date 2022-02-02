@@ -1,10 +1,11 @@
+
 import  Mongoose  from 'mongoose';
 import httpStatus from 'http-status';
 import config from '../config/config.js';
 import logger from '../config/logger.js';
 import ApiError from '../utils/ApiError.js';
 
-export const errorConverter = (err, req, res, next) => {
+ const errorConverter = (err, req, res, next) => {
   let error = err;
   if (!(error instanceof ApiError)) {
     // eslint-disable-next-line max-len
@@ -18,7 +19,7 @@ export const errorConverter = (err, req, res, next) => {
 /**
  * Get unique error field name
  */
-export const uniqueMessage = (error) => {
+ const uniqueMessage = (error) => {
   let output;
   try {
     const fieldName = error.message.substring(
@@ -38,7 +39,7 @@ export const uniqueMessage = (error) => {
 /**
  * Get the erroror message from error object
  */
-export const dbErrorHandler = (error) => {
+ const dbErrorHandler = (error) => {
   let message = '';
 
   if (error.code) {
@@ -61,7 +62,7 @@ export const dbErrorHandler = (error) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-export const errorHandler = (err, req, res, next) => {
+ const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
@@ -83,4 +84,9 @@ export const errorHandler = (err, req, res, next) => {
   res.status(statusCode).send(response);
 };
 
-export default error;
+export default {
+  errorConverter,
+  dbErrorHandler,
+  errorHandler,
+
+};

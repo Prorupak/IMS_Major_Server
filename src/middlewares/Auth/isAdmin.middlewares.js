@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-const httpStatus = require('http-status');
-const ApiError = require('../../utils/ApiError');
+import httpStatus from 'http-status';
+import ApiError from '../../utils/ApiError.js';
 
 const isAdmin = (req, res, next) => {
   const { is_Admin } = req.body;

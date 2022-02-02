@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const toJSON = require('../plugins/toJSON');
-const { unitRules } = require('../../config/units');
+import mongoose from 'mongoose';
+import validator from 'validator';
+import toJSON from '../plugins/toJSON.js';
+import {unitRules} from '../../config/units.js';
 
 const CategorySchema = new mongoose.Schema(
   {

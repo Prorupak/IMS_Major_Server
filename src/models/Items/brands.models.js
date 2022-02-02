@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const toJSON = require('../plugins/toJSON');
+import  mongoose  from 'mongoose';
+import validator from 'validator';
+import toJSON from '../plugins/toJSON.ks';
 
 const BrandsSchema = new mongoose.Schema({
   name: {

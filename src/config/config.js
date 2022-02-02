@@ -1,6 +1,6 @@
-const dotenv = require('dotenv');
-const path = require('path');
-const Joi = require('joi');
+import dotenv from 'dotenv';
+import path from 'path';
+import Joi from 'joi';
 
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 

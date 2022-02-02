@@ -1,8 +1,8 @@
-const httpStatus = require('http-status');
-const ApiError = require('../../utils/ApiError');
-const { jwt } = require('../../config/config');
-const { tokenService } = require('../../services').default;
-const User = require('../../models/user.models');
+import httpStatus from 'http-status';
+import ApiError from '../../utils/ApiError.js';
+import {} from '../../config/config.js';
+import {tokenService} from '../../services'
+import User from '../../models/user.models.js';
 
 console.log('jwt=====', jwt);
 
