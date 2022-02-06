@@ -1,7 +1,8 @@
 import passport from 'passport';
 import httpStatus from 'http-status';
 import ApiError from '../../utils/ApiError.js';
-import {roleRights} from '../../config/roles.js'
+import {roleRights} from '../../config/rolesConfig.js';
+
 
 // eslint-disable-next-line consistent-return
 const verifyCallback = (req, resolve, reject, requiredRights) => async (err, user, info) => {

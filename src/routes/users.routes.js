@@ -1,32 +1,21 @@
 import express from 'express'; 
 import {
-   createUser as addVal,
-   deleteUserById as deleteVal,
-   getUserById as byIdVal,
-   getUsers as getVal,
-   updateUserById as updateVal
-    } from '../validations/user.validation.js';
-import {
-  createUser, 
-  getAllUsers,
-  getUserById,
-  updateUserById,
-  deleteUserById
-} from '../controllers/Auth/users.controllers.js';
- import validate from '../middlewares/Auth/validate.middlewares.js';
- import auth from '../middlewares/Auth/auth.middlewares.js';
+  userValidation
+} from '../validations/index.js';
+import {usersControllers} from '../controllers/index.js';
+ import {validate, auth } from '../middlewares/index.js';
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(validate(addVal), createUser)
-  .get(validate(getVal), getAllUsers);
+  .post(validate(userValidation.createUser), usersControllers.createUser)
+    .get(validate(userValidation.getUsers), usersControllers.getAllUsers);
 
 router
   .route('/:userId')
-  .get(auth('getUsers'), validate(byIdVal), getUserById)
-  .put(validate(updateVal), updateUserById, )
-  .delete(auth('manageUsers'), validate(deleteVal), deleteUserById);
+  .get(auth('getUsers'), validate(userValidation.getUserById), usersControllers.getUserById)
+    .put(validate(userValidation.updateUserById), usersControllers.updateUserById )
+    .delete(auth('manageUsers'), validate(userValidation.deleteUserById), usersControllers.deleteUserById);
 
 export default router;

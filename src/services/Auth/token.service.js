@@ -1,11 +1,9 @@
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
-// const httpStatus = require('http-status');
-const config = require('../../config/config');
-// const userService = require('./users.service');
-const Token = require('../../models/token.models');
-const ApiError = require('../../utils/ApiError');
-const { tokenTypes } = require('../../config/tokenTypes');
+import jwt from 'jsonwebtoken';
+import moment from 'moment';
+import config from '../../config/config.js';
+import ApiError from '../../utils/ApiError.js';
+import Token from '../../models/token.models.js';
+import {tokenTypes} from '../../config/index.js';
 
 const generateToken = (id, expires, types, secret = config.jwt.secret) => {
   const payload = {

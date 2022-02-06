@@ -1,24 +1,19 @@
-const express = require('express');
-// const mongoose = require('mongoose');
-const {
-  createProduct, getAllProducts, getProductById, updateProductById, deleteProductById,
-} = require('../../controllers/Items/products.controllers');
-const auth = require('../../middlewares/Auth/auth.middlewares');
-
-const validate = require('../../middlewares/Auth/validate.middlewares');
-const productValidations = require('../../validations/Items/products.validations');
+import express from 'express';
+import {productsValidation} from '../../validations/index.js';
+import {productsControllers} from '../../controllers/index.js';
+import { auth, validate } from '../../middlewares/index.js';
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(auth(), validate(productValidations.createProduct), createProduct)
-  .get(validate(productValidations.getProducts), getAllProducts);
+  .post(auth(), validate(productsValidation.createProduct), productsControllers.createProduct)
+  .get(validate(productsValidation.getProducts), productsControllers.getAllProducts);
 
 router
   .route('/:id')
-  .get(validate(productValidations.getProductsById), getProductById)
-  .put(validate(productValidations.updateProductsById), updateProductById)
-  .delete(validate(productValidations.deleteProductsById), deleteProductById);
+  .get(validate(productsValidation.getProductsById), productsControllers.getProductById)
+  .put(validate(productsValidation.updateProductsById), productsControllers.updateProductById)
+  .delete(validate(productsValidation.deleteProductsById), productsControllers.deleteProductById);
 
 export default router;

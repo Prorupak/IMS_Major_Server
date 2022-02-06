@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const Brands = require('../../models/Items/brands.models');
-const ApiError = require('../../utils/ApiError');
+import httpStatus from 'http-status';
+import Brands from '../../models/Items/brands.models.js'
+import ApiError from '../../utils/ApiError.js';
 
 const createBrand = async (brandBody) => {
   if (await Brands.findByName(brandBody.name)) {

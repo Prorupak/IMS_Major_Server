@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import {objectId, password} from './custom.validation.js';
 
-export const createUser = {
+ const createUser = {
   body: Joi.object().keys({
     name: Joi.string(),
     email: Joi.string().lowercase(),
@@ -10,7 +10,7 @@ export const createUser = {
   }),
 };
 
-export const getUsers = {
+ const getUsers = {
   query: Joi.object().keys({
     name: Joi.string(),
     email: Joi.string().lowercase(),
@@ -20,13 +20,13 @@ export const getUsers = {
   }),
 };
 
-export const getUserById = {
+ const getUserById = {
   query: Joi.object().keys({
     id: Joi.string().custom(objectId),
   }),
 };
 
-export const updateUserById = {
+ const updateUserById = {
   params: Joi.object().keys({
     id: Joi.string().custom(objectId),
   }),
@@ -39,8 +39,16 @@ export const updateUserById = {
     .min(1),
 };
 
-export const deleteUserById = {
+ const deleteUserById = {
   params: Joi.object().keys({
     id: Joi.string(),
   }),
 };
+
+  export default {
+    createUser,
+    getUsers,
+    getUserById,
+    updateUserById,
+    deleteUserById,
+  };

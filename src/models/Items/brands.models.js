@@ -1,6 +1,6 @@
 import  mongoose  from 'mongoose';
 import validator from 'validator';
-import toJSON from '../plugins/toJSON.ks';
+import toJSON from '../plugins/toJSON.js';
 
 const BrandsSchema = new mongoose.Schema({
   name: {

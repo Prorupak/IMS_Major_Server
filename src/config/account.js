@@ -1,8 +1,8 @@
-export const account = {
+ const account = {
   accountName: ['discount', 'general income', 'interest income', 'late fee', 'other charges', 'sales', 'delivery charges'],
 };
 
-export const purchaseAccount = {
+ const purchaseAccount = {
   purchaseAcc: [
     'Automobile Expenses',
     'Bank fees',
@@ -20,9 +20,14 @@ export const purchaseAccount = {
   ],
 };
 
-export const allAccount = Object.keys(account);
-export const purchaseAcc = Object.keys(purchaseAccount);
-export const accountItems = new Map(Object.entries(account));
-export const purchaseItems = new Map(Object.entries(purchaseAcc));
+ const allAccount = Object.keys(account);
+ const purchaseAcc = Object.keys(purchaseAccount);
+ const accountItems = new Map(Object.entries(account));
+ const purchaseItems = new Map(Object.entries(purchaseAcc));
 
-export default accountData;
+ export default {
+  allAccount,
+  purchaseAcc,
+  accountItems,
+  purchaseItems,
+};

@@ -2,8 +2,7 @@
 /* eslint-disable max-len */
 import mongoose from 'mongoose';
 import validator from 'validator';
-import {accountItems, purchaseItems} from '../../config/account.js'
-import {unitRules}  from '../../config/units.js';
+import {accountData, units} from '../../config/index.js';
 import toJSON from '../plugins/toJSON.js';
 
 const ProductsSchema = new mongoose.Schema({
@@ -77,7 +76,7 @@ const ProductsSchema = new mongoose.Schema({
     {
       unit: {
         type: String,
-        enum: unitRules.set,
+        enum:units.unitRules.set,
       },
     },
   ],
@@ -166,7 +165,7 @@ const ProductsSchema = new mongoose.Schema({
 
       account: {
         type: String,
-        enum: accountItems.set,
+        enum: accountData.accountItems.set,
         default: 'Income',
         required: true,
       },
@@ -209,7 +208,7 @@ const ProductsSchema = new mongoose.Schema({
 
       account: {
         type: String,
-        enum: purchaseItems.set,
+        enum: accountData.purchaseItems.set,
         required: true,
       },
 

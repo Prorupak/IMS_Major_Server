@@ -1,5 +1,5 @@
-/* eslint-disable camelcase */
-const User = require('../../models/user.models');
+import User from '../../models/user.models.js';
+
 
 const isAdmin = async (is_Admin) => {
   User.findOne({ is_Admin });

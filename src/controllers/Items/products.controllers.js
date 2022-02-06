@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync.js';
 import ApiError from '../../utils/ApiError.js';
-import {productsService} from '../../services'
+import {productsService} from '../../services/index.js'
 
 const createProduct = catchAsync(async (req, res) => {
   const product = await productsService.createProduct(req.body);

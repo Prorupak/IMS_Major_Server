@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import Category from '../../models/Items/categories.models.js';
 import ApiError from '../../utils/ApiError.js';
 
-export const createCategory = async (categoryBody) => {
+ const createCategory = async (categoryBody) => {
   console.log('categoryBody===', categoryBody.name);
   const { name } = categoryBody;
   if (await Category.findByName(name)) {
@@ -11,19 +11,19 @@ export const createCategory = async (categoryBody) => {
   return Category.create(categoryBody);
 };
 
-export const getCategory = async (category) => {
+ const getCategory = async (category) => {
   const categories = await Category.find({ category });
   return categories;
 };
 
-export const getCategoryByName = async (name) => {
+ const getCategoryByName = async (name) => {
   const product = await Category.findOne({ name });
   return product;
 };
 
-export const getCategoryById = async (id) => Category.findById(id);
+ const getCategoryById = async (id) => Category.findById(id);
 
-export const updateByCategoryId = async (updateCategory, id) => {
+ const updateByCategoryId = async (updateCategory, id) => {
   console.log(id);
   const category = await getCategoryById(id);
   if (!category) {
@@ -41,7 +41,7 @@ export const updateByCategoryId = async (updateCategory, id) => {
   return category;
 };
 
-export const deleteByCategoryId = async (id) => {
+ const deleteByCategoryId = async (id) => {
   const category = await getCategoryById(id);
   if (!category) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'category not found');
@@ -52,4 +52,11 @@ export const deleteByCategoryId = async (id) => {
   return category;
 };
 
-export default admin
+export default {
+  createCategory,
+  getCategory,
+  getCategoryByName,
+  getCategoryById,
+  updateByCategoryId,
+  deleteByCategoryId,
+};

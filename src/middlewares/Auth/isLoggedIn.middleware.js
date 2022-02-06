@@ -1,10 +1,10 @@
 import httpStatus from 'http-status';
 import ApiError from '../../utils/ApiError.js';
-import {} from '../../config/config.js';
+import {config} from '../../config/index.js';
 import {tokenService} from '../../services/index.js'
 import User from '../../models/user.models.js';
 
-console.log('jwt=====', jwt);
+console.log('jwt=====', config.jwt);
 
 const isLoggedIn = async (req, res, next) => {
   console.log('req.headers.authorization=====', req.headers.authorization);

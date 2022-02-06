@@ -1,14 +1,14 @@
 import winston from 'winston';
 import config from './config.js';
 
-export const enumerateErrorFormat = winston.format((info) => {
+ const enumerateErrorFormat = winston.format((info) => {
   if (info instanceof Error) {
     Object.assign(info, { message: info.stack });
   }
   return info;
 });
 
-export const logger = winston.createLogger({
+ const logger = winston.createLogger({
   level: config.env === 'development' ? 'debug' : 'info',
   format: winston.format.combine(
     enumerateErrorFormat(),

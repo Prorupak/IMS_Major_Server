@@ -1,36 +1,36 @@
-const httpStatus = require('http-status');
-const Product = require('../../models/Items/products.models');
-const ApiError = require('../../utils/ApiError');
+import httpStatus from 'http-status';
+import Products from '../../models/Items/products.models.js';
+import ApiError from '../../utils/ApiError.js';
 
 const createProduct = async (productBody) => {
-  if (await Product.findByName(productBody.name)) {
+  if (await Products.findByName(productBody.name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, ['product already listed']);
   }
-  return Product.create(productBody);
+  return Products.create(productBody);
 };
 
 const getProducts = async (products) => {
-  const product = await Product.find({ products });
+  const product = await Products.find({ products });
   return product;
 };
 
 const getProductByName = async (name) => {
-  const product = await Product.findOne({ name });
+  const product = await Products.findOne({ name });
   return product;
 };
 
 const getProductById = async (id) => {
-  const product = await Product.findById(id);
+  const product = await Products.findById(id);
   return product;
 };
 
 const updateProductById = async (id, updateProduct) => {
   const product = await getProductById(id);
   if (!product) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Product Not Listed');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Products Not Listed');
   }
 
-  if (updateProduct.name && (await Product.findByName(updateProduct.name, id))) {
+  if (updateProduct.name && (await Products.findByName(updateProduct.name, id))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'product already Listed');
   }
   Object.assign(product, updateProduct);
@@ -44,7 +44,7 @@ const deleteProductById = async (id) => {
   const product = await getProductById(id);
 
   if (!product) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Product not listed');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Products not listed');
   }
 
   await product.remove();

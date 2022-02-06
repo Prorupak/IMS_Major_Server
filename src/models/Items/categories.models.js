@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import toJSON from '../plugins/toJSON.js';
-import {unitRules} from '../../config/units.js';
+import {units} from '../../config/index.js';
 
 const CategorySchema = new mongoose.Schema(
   {
@@ -30,14 +30,14 @@ const CategorySchema = new mongoose.Schema(
 
     unit: {
       type: String,
-      // enum: unitRules.set,
+      // enum: units.unitRules.set,
       // default: null,
       // validate(value) {
       //   if (!value) {
       //     return;
       //   }
 
-      //   if (!unitRules.includes(value)) {
+      //   if (!units.unitRules.includes(value)) {
       //     throw new Error('Invalid unit');
       //   }
       // },

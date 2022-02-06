@@ -1,13 +1,13 @@
 import Joi from 'joi';
-import {unitRules} from '../../config/units.js'
+import {units} from '../../config/index.js';
 import { objectId } from '../custom.validation.js';
 
-export const createCategory = {
+ const createCategory = {
   body: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
 
-    unit: Joi.string().valid(unitRules),
+    unit: Joi.string().valid(units.unitRules),
 
     multipleItems: [
       {
@@ -19,11 +19,11 @@ export const createCategory = {
   date: Joi.date().default(Date.now),
 };
 
-export const getCategory = {
+ const getCategory = {
   query: Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string(),
-    unit: Joi.string().valid(unitRules),
+    unit: Joi.string().valid(units.unitRules),
 
     multipleItems: [
       {
@@ -36,7 +36,7 @@ export const getCategory = {
 
 };
 
-export const getCategoryById = {
+ const getCategoryById = {
   query: Joi.object().keys(
     {
       id: Joi.string().custom(objectId),
@@ -44,7 +44,7 @@ export const getCategoryById = {
   ),
 };
 
-export const updateCategoryById = {
+ const updateCategoryById = {
   params: Joi.object().keys(
     {
       id: Joi.string().custom(objectId),
@@ -55,7 +55,7 @@ export const updateCategoryById = {
     {
       name: Joi.string().required(),
       description: Joi.string(),
-      unit: Joi.string().valid(unitRules),
+      unit: Joi.string().valid(units.unitRules),
       multipleItems: [
         {
           attribute: Joi.string(),
@@ -68,7 +68,7 @@ export const updateCategoryById = {
     .min(1),
 };
 
-export const deleteCategoryById = {
+ const deleteCategoryById = {
   params: Joi.object().keys(
     {
       id: Joi.string(),
@@ -76,3 +76,10 @@ export const deleteCategoryById = {
   ),
 };
 
+export default {
+  createCategory,
+  getCategory,
+  getCategoryById,
+  updateCategoryById,
+  deleteCategoryById,
+};

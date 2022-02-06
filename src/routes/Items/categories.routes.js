@@ -1,25 +1,21 @@
 import express from 'express';
-import categoriesController from '../../controllers/Items/categories.controller.js';
-import validate from '../../middlewares/Auth/validate.middlewares.js';
+import {categoriesControllers} from '../../controllers/index.js';
+import {validate} from '../../middlewares/index.js';
 import {
-  createCategory,
-  getCategory,
-  getCategoryById,
-  updateCategoryById,
-  deleteCategoryById,
-} from '../../validations/Items/categories.validations.js';
+  categoriesValidation
+} from '../../validations/index.js';
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(validate(createCategory), categoriesController.createCategory)
-  .get(validate(getCategory), categoriesController.getAllCategory);
+  .post(validate(categoriesValidation.createCategory), categoriesControllers.createCategory)
+    .get(validate(categoriesValidation.getCategory), categoriesControllers.getAllCategory);
 
 router
   .route('/:id')
-  .get(validate(getCategoryById), categoriesController.getCategoryById)
-  .put(validate(updateCategoryById), categoriesController.updateCategoryById)
-  .delete(validate(deleteCategoryById), categoriesController.deleteCategoryById);
+  .get(validate(categoriesValidation.getCategoryById), categoriesControllers.getCategoryById)
+    .put(validate(categoriesValidation.updateCategoryById), categoriesControllers.updateCategoryById)
+    .delete(validate(categoriesValidation.deleteCategoryById), categoriesControllers.deleteCategoryById);
 
 export default router;

@@ -1,23 +1,22 @@
 import httpStatus from 'http-status';
 import ApiError from '../../utils/ApiError.js';
 import catchAsync from '../../utils/catchAsync.js';
-
-const CategoryService = require('../../services/Items/categories.service');
+import {categoriesService} from '../../services/index.js';
 
 const createCategory = catchAsync(async (req, res) => {
-  const category = await CategoryService.createCategory(req.body);
+  const category = await categoriesService.createCategory(req.body);
   res.status(httpStatus.CREATED).json(category);
 });
 
 const getAllCategory = catchAsync(async (req, res) => {
-  const category = await CategoryService.getCategory(req.body);
+  const category = await categoriesService.getCategory(req.body);
   res.json(category);
 });
 
 const getCategoryById = catchAsync(async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  const category = await CategoryService.getCategoryById(id);
+  const category = await categoriesService.getCategoryById(id);
   console.log(category);
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, ['Category not listed']);
@@ -28,14 +27,14 @@ const getCategoryById = catchAsync(async (req, res) => {
 const updateCategoryById = catchAsync(async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  const category = await CategoryService.updateByCategoryId(id, req.body);
+  const category = await categoriesService.updateByCategoryId(id, req.body);
   console.log(category);
   res.status(httpStatus.CREATED).json(category);
 });
 
 const deleteCategoryById = catchAsync(async (req, res) => {
   const { id } = req.body;
-  await CategoryService.deleteByCategoryId(id);
+  await categoriesService.deleteByCategoryId(id);
   res.status(httpStatus.NO_CONTENT).json();
 });
 

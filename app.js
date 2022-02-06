@@ -7,17 +7,15 @@ import mongoSanitize from 'express-mongo-sanitize';
 import passport from 'passport';
 import apiRoutes from './src/routes/api.js';
 import ApiError from './src/utils/ApiError.js';
-import {errorConverter, errorHandler} from './src/middlewares/error.js';
-
-const config = require('./src/config/config');
-const logger = require('./src/config/logger');
-const { jwtStrategy } = require('./src/config/passport');
-
+import {error} from './src/middlewares/index.js';
+import {logger, config, JwtStrategy } from './src/config/index.js';
 // const oldSpawn = childProcess.spawn;
 
+
 const app = express();
+
 // mongo config
-require('./src/utils/db_init');
+import './src/utils/db_init.js';
 
 // parse json body request
 app.use(cors());
@@ -29,18 +27,12 @@ app.use(mongoSanitize());
 
 // jwt auth
 app.use(passport.initialize());
-passport.use('jwt', jwtStrategy);
+passport.use('jwt', JwtStrategy);
 
 if (app.get('env') === 'development') {
   app.use(morgan('tiny'));
 }
 
-// middleware for parsing application
-
-// // limit repeated failed requests to auth endpoints
-// if (config.env === 'production') {
-//   app.use('/v1/auth', authLimiter);
-// }
 
 // routing lvl middleware
 app.use('/api', apiRoutes);
@@ -54,10 +46,10 @@ app.use((req, res, next) => {
 });
 
 // convert error to ApiError, if needed
-app.use(errorConverter);
+app.use(error.errorConverter);
 
 // handle error
-app.use(errorHandler);
+app.use(error.errorHandler);
 
 app.listen(config.port, () => {
   logger.info(`Listening to port ${config.port}`);

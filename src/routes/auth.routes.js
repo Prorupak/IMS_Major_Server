@@ -1,12 +1,14 @@
-const express = require('express');
-const authValidation = require('../validations/auth.validation');
-const authController = require('../controllers/Auth/auth.controllers');
-const validate = require('../middlewares/Auth/validate.middlewares');
+import express from 'express';
+import {
+  authValidation
+} from '../validations/index.js'
+import {authControllers} from '../controllers/index.js';
+import {validate} from '../middlewares/index.js';
 
 const router = express.Router();
 
-router.post('/register', validate(authValidation.register), authController.register);
-router.post('/login', validate(authValidation.login), authController.login);
-router.post('/refresh-token', validate(authValidation.refreshTokens), authController.refreshTokens);
+router.post('/register', validate(authValidation.register), authControllers.register);
+router.post('/login', validate(authValidation.login), authControllers.login);
+router.post('/refresh-token', validate(authValidation.refreshTokens), authControllers.refreshTokens);
 
 export default router;

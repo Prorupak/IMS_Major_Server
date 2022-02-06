@@ -1,10 +1,12 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync.js';
 
-import {userService, tokenService, authService} from '../../services'
+import {
+  userService
+} from '../../services/index.js';
 
  const register = catchAsync(async (req, res) => {
-  const user = await userService.createUser(req.body);
+         const user = await userService.createUser(req.body);
   res.status(httpStatus.CREATED).send(user);
 });
 
@@ -17,7 +19,7 @@ import {userService, tokenService, authService} from '../../services'
   res.json({ tokens });
 });
 
- const refreshTokens = catchAsync(async (req, res) => {
+  const refreshTokens = catchAsync(async (req, res) => {
   const tokens = await authService.refreshAuth(req.body.refreshToken);
   res.json({ ...tokens });
 });
@@ -25,5 +27,5 @@ import {userService, tokenService, authService} from '../../services'
 export default {
   register,
   login,
-  refreshTokens,
+  refreshTokens
 };

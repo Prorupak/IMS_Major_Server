@@ -1,9 +1,7 @@
-const httpStatus = require('http-status');
-const userService = require('./users.service');
-const ApiError = require('../../utils/ApiError');
-const { tokenService } = require('..').default;
-const { tokenTypes } = require('../../config/tokenTypes');
-// const User = require('../models/user.models');
+import httpStatus from 'http-status';
+import {userService, tokenService} from '../../services/index.js';
+import ApiError from '../../utils/ApiError.js';
+import {tokenTypes } from  '../../config/index.js'; 
 
 const loginUserByEmailAndPassword = async (email, password) => {
   const user = await userService.getUserByEmail(email);

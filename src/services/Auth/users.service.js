@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import User from '../../models/user.models';
+import User from '../../models/user.models.js';
 import ApiError from '../../utils/ApiError.js';
 
 const createUser = async (userBody) => {

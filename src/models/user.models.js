@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs'
-import {roles} from '../config/roles.js';
+import { role } from '../config/rolesConfig.js';
 import toJSON from './plugins/toJSON.js';
 
 const UserSchema = new mongoose.Schema(
-
   {
     name: {
       type: String,
@@ -60,10 +59,10 @@ const UserSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: roles,
+      enum: role,
       default: 'admin',
       validate(value) {
-        if (!roles.includes(value)) {
+        if (!role.includes(value)) {
           throw new Error('Invalid role');
         }
       },
