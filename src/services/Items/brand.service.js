@@ -10,8 +10,8 @@ const createBrand = async (brandBody) => {
 };
 
 const getBrands = async (brands) => {
-  Brands.find({ brands });
-  console.log('=====', brands);
+  const brand = await Brands.find({ brands });
+  return brand;
 };
 
 const getBrandByName = async (name) => {
@@ -25,7 +25,7 @@ const getBrandById = async (id) => {
   return brand;
 };
 
-const updateBrandById = async (updateBody, id) => {
+const updateBrandById = async (id, updateBody) => {
   const brand = await getBrandById(id);
   if (!brand) {
     throw new ApiError(httpStatus.NOT_FOUND, 'brand not found');

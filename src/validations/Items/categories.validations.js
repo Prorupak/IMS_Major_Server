@@ -21,7 +21,7 @@ import { objectId } from '../custom.validation.js';
 
  const getCategory = {
   query: Joi.object().keys({
-    name: Joi.string().required(),
+    name: Joi.string(),
     description: Joi.string(),
     unit: Joi.string().valid(units.unitRules),
 

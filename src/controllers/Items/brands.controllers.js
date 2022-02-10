@@ -9,10 +9,9 @@ const createBrand = catchAsync(async (req, res) => {
 });
 
 const getBrands = catchAsync(async (req, res) => {
-  console.log('cls brand', req.body);
   const data = req.body;
-  const brand = BrandService.getBrands(data);
-  res.json(brand);
+  const brand = await BrandService.getBrands(data);
+  res.json({brand});
 });
 
 const getBrandById = catchAsync(async (req, res) => {
@@ -26,8 +25,9 @@ const getBrandById = catchAsync(async (req, res) => {
 const updateBrandById = catchAsync(async (req, res) => {
   console.log('cls update', req.body);
   console.log('cls update', req.params.id);
-  const brand = await BrandService.updateBrandById(req.params.id, req.body);
-  res.status(httpStatus.CREATED).json(brand);
+  const { id } = req.params;
+  const brand = await BrandService.updateBrandById(id, req.body);
+  res.status(httpStatus.CREATED).json({brand});
 });
 
 const deleteBrandById = catchAsync(async (req, res) => {
