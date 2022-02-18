@@ -4,6 +4,8 @@ import {
 } from '../validations/index.js'
 import {authControllers} from '../controllers/index.js';
 import {validate} from '../middlewares/index.js';
+import passport from 'passport';
+
 
 const router = express.Router();
 

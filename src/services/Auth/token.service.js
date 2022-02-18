@@ -23,6 +23,10 @@ const saveToken = async (token, id, expires, types, blacklist = false) => {
     types,
     blacklist,
   });
+  console.log(
+    token = tokenDoc.token,
+
+  );
   return tokenDoc;
 };
 

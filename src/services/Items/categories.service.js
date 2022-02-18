@@ -12,7 +12,7 @@ import ApiError from '../../utils/ApiError.js';
 };
 
  const getCategory = async (category) => {
-  const categories = await Category.find({ category });
+   const categories = await Category.find({ category }).populate('products');
   return categories;
 };
 

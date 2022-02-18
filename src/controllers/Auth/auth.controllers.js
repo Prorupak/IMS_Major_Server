@@ -1,22 +1,24 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync.js';
+import { authService, tokenService } from '../../services/index.js';
 
 import {
-  userService
+  adminService
 } from '../../services/index.js';
 
  const register = catchAsync(async (req, res) => {
-         const user = await userService.createUser(req.body);
-  res.status(httpStatus.CREATED).send(user);
+   const admin = await adminService.createAdmin(req.body);
+   res.status(httpStatus.CREATED).json(admin);
 });
 
  const login = catchAsync(async (req, res) => {
   const success = 'Successfully logged in';
-  const { email, password } = req.body;
-  const user = await authService.loginUserByEmailAndPassword(email, password);
-  const tokens = await tokenService.generateAuthTokens(user);
+   const { email, password } = req.body;
+   const user = await authService.loginUserByEmailAndPassword(email, password);
+   const tokens = await tokenService.generateAuthTokens(user);
+
   console.log(success);
-  res.json({ tokens });
+   res.json({ tokens, success });
 });
 
   const refreshTokens = catchAsync(async (req, res) => {

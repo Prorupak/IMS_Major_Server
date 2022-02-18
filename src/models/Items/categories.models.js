@@ -10,17 +10,17 @@ const CategorySchema = new mongoose.Schema(
       trim: true,
       required: true,
       maxlength: 32,
-      // validate(value) {
-      //   if (value.length < 3) {
-      //     throw new Error('Name must be at least 3 characters long');
-      //   }
-      //   if (!validator.isAlpha(value)) {
-      //     throw new Error('Name must contain only letters');
-      //   }
-      //   if (validator.isEmpty(value)) {
-      //     throw new Error('Name must not be empty');
-      //   }
-      // },
+      validate(value) {
+        if (value.length < 3) {
+          throw new Error('Name must be at least 3 characters long');
+        }
+        if (!validator.isAlpha(value)) {
+          throw new Error('Name must contain only letters');
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error('Name must not be empty');
+        }
+      },
     },
 
     description: {
@@ -51,6 +51,11 @@ const CategorySchema = new mongoose.Schema(
           throw new Error('Date cannot be in the future');
         }
       },
+    },
+
+    products: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Products',
     },
 
     multipleItems: [

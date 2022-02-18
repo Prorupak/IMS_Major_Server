@@ -2,7 +2,8 @@
 /* eslint-disable max-len */
 import mongoose from 'mongoose';
 import validator from 'validator';
-import {accountData, units} from '../../config/index.js';
+import { accountData } from '../../config/index.js';
+import units from '../../config/units.js';
 import toJSON from '../plugins/toJSON.js';
 
 const ProductsSchema = new mongoose.Schema({

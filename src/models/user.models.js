@@ -52,6 +52,18 @@ const UserSchema = new mongoose.Schema(
       },
     },
 
+    phone: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+
+    countries: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+
     about: {
       type: String,
       trim: true,
@@ -78,10 +90,10 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
 
-    // is_Admin: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    is_Admin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

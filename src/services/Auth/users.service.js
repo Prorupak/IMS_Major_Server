@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import User from '../../models/user.models.js';
 import ApiError from '../../utils/ApiError.js';
+import bcrypt from 'bcryptjs';
 
 const createUser = async (userBody) => {
   // eslint-disable-next-line prefer-destructuring
@@ -24,7 +25,7 @@ const updateUserById = async (id, updateBody) => {
   }
 
   if (updateBody.email && (await User.isEmailTaken(updateBody.email, id))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email Already Taken');
+    throw new ApiError('Email Already Taken');
   }
 
   Object.assign(user, updateBody);

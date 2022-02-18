@@ -6,6 +6,6 @@ import {adminControllers} from '../controllers/index.js';
 const router = express.Router();
 
 router.route('/')
-  .get(validate(adminValidation.isAdmin), adminControllers.isAdmin);
+  .post(validate(adminValidation.createAdmin), adminControllers.createAdmin);
 
 export default router;

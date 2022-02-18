@@ -1,12 +1,14 @@
 import httpStatus from 'http-status';
-import {userService, tokenService} from '../../services/index.js';
+import { adminService, tokenService, userService } from '../../services/index.js';
 import ApiError from '../../utils/ApiError.js';
 import {tokenTypes } from  '../../config/index.js'; 
+import { Admin } from '../../models/index.js'
 
 const loginUserByEmailAndPassword = async (email, password) => {
+  // const isAdmin = await User.findOne({ is_Admin: true }); 
   const user = await userService.getUserByEmail(email);
-  if (!user || (await user.isPasswordMatch(password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid email or password');
+  if (!user || !(await user.isPasswordMatch(password))) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password.');
   }
   return user;
 };

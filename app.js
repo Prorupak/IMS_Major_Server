@@ -16,6 +16,7 @@ const app = express();
 
 // mongo config
 import './src/utils/db_init.js';
+import Admin from './src/models/admin.models.js';
 
 // parse json body request
 app.use(cors());
@@ -28,6 +29,7 @@ app.use(mongoSanitize());
 // jwt auth
 app.use(passport.initialize());
 passport.use('jwt', JwtStrategy);
+passport.use(Admin.createStrategy());
 
 if (app.get('env') === 'development') {
   app.use(morgan('tiny'));

@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import ApiError from '../../utils/ApiError.js';
 import catchAsync from '../../utils/catchAsync.js';
 import {categoriesService} from '../../services/index.js';
+import Category from '../../models/Items/categories.models.js';
 
 const createCategory = catchAsync(async (req, res) => {
   const category = await categoriesService.createCategory(req.body);
