@@ -6,13 +6,11 @@ import { objectId } from '../custom.validation.js';
   body: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
-
-    unit: Joi.string().valid(units.unitRules),
-
+    products: Joi.array(),
     multipleItems: [
       {
         attribute: Joi.string(),
-        options: Joi.string(),
+        options: Joi.array(),
       },
     ],
   }),
@@ -23,12 +21,10 @@ import { objectId } from '../custom.validation.js';
   query: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
-    unit: Joi.string().valid(units.unitRules),
-
     multipleItems: [
       {
         attribute: Joi.string(),
-        options: Joi.string(),
+        options: Joi.array(),
       },
     ],
   }),

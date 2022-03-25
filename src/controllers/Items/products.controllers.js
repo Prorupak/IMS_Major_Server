@@ -25,6 +25,20 @@ const getProductById = catchAsync(async (req, res) => {
   res.json(product);
 });
 
+const getBrandByProduct = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const products = await productsService.getProductByBrand(id);
+  console.log(products.brand);
+  res.json(products.brand);
+})
+
+const createBrandByProduct = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const product = await productsService.createBrandByProduct(id, req.body);
+  // console.log("category===", category);
+  res.json(product);
+})
+
 const updateProductById = catchAsync(async (req, res) => {
   const { id } = req.params;
   const product = await productsService.updateProductById(id, req.body);
@@ -40,6 +54,8 @@ const deleteProductById = catchAsync(async (req, res) => {
 export default {
   createProduct,
   getAllProducts,
+  getBrandByProduct,
+  createBrandByProduct,
   getProductById,
   updateProductById,
   deleteProductById,

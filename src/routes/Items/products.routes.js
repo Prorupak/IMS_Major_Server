@@ -13,7 +13,7 @@ router
    * @middlewares {auth, validate}
    * @callback {productsControllers.createProduct} 
    */
-  .post(auth(), validate(productsValidation.createProduct), productsControllers.createProduct)
+  .post(productsControllers.createProduct)
   /**
    * @api {get} /api/products Get all products
    * @middlewares {auth, validate}
@@ -25,5 +25,10 @@ router
   .get(validate(productsValidation.getProductsById), productsControllers.getProductById)
   .put(validate(productsValidation.updateProductsById), productsControllers.updateProductById)
   .delete(validate(productsValidation.deleteProductsById), productsControllers.deleteProductById);
+
+router
+  .route('/:id/brand')
+  .post(productsControllers.createBrandByProduct)
+  .get(productsControllers.getBrandByProduct);
 
 export default router;

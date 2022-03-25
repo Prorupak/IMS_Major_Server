@@ -3,13 +3,14 @@ import validator from 'validator';
 import bcrypt from 'bcryptjs'
 import { role } from '../config/rolesConfig.js';
 import toJSON from './plugins/toJSON.js';
+import { formattedDate } from './Items/categories.models.js';
 
 const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       trim: true,
-      required: [true, { reqName: 'Name is required' }],
+      // required: [true, { reqName: 'Name is required' }],
       maxlength: 32,
       validate(value) {
         if (value.length < 3) {
@@ -27,7 +28,7 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
-      required: true,
+      // required: true,
       unique: true,
       lowercase: true,
       validate(value) {
@@ -40,7 +41,7 @@ const UserSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: true,
+      // required: true,
       minlength: 8,
       validate(value) {
         if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
@@ -55,13 +56,13 @@ const UserSchema = new mongoose.Schema(
     phone: {
       type: String,
       trim: true,
-      required: true,
+      // required: true,
     },
 
     countries: {
       type: String,
       trim: true,
-      required: true,
+      // required: true,
     },
 
     about: {
@@ -81,9 +82,13 @@ const UserSchema = new mongoose.Schema(
     },
 
     history: {
-      type: Array,
-      default: [],
+      type: String
     },
+
+    // history: {
+    //   type: Array,
+    //   default: [],
+    // },
 
     isEmailVerified: {
       type: Boolean,

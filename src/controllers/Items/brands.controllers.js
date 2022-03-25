@@ -11,7 +11,7 @@ const createBrand = catchAsync(async (req, res) => {
 const getBrands = catchAsync(async (req, res) => {
   const data = req.body;
   const brand = await BrandService.getBrands(data);
-  res.json({brand});
+  res.json(brand);
 });
 
 const getBrandById = catchAsync(async (req, res) => {

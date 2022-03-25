@@ -18,4 +18,10 @@ router
     .put(validate(categoriesValidation.updateCategoryById), categoriesControllers.updateCategoryById)
     .delete(validate(categoriesValidation.deleteCategoryById), categoriesControllers.deleteCategoryById);
 
+router
+  .route('/:id/products')
+  .post(categoriesControllers.createCategoryByProduct)
+  .get(categoriesControllers.getCategoryByProduct);
+
+
 export default router;

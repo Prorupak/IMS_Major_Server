@@ -5,19 +5,27 @@ import validator from 'validator';
 import { accountData } from '../../config/index.js';
 import units from '../../config/units.js';
 import toJSON from '../plugins/toJSON.js';
+import moment from 'moment';
 
+function pad2(n) {
+  return (n < 10 ? '0' : '') + n;
+}
+
+var date = new Date();
+var month = pad2(date.getMonth() + 1);//months (0-11)
+var day = pad2(date.getDate());//day (1-31)
+var year = date.getFullYear();
+
+var formattedDate = year + "/" + month + "/" + day;
 const ProductsSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: true,
+    // required: true,
     maxlength: 32,
     validate(value) {
       if (value.length < 3) {
         throw new Error('Name must be at least 3 characters long');
-      }
-      if (!validator.isAlpha(value)) {
-        throw new Error('Name must contain only letters');
       }
       if (validator.isEmpty(value)) {
         throw new Error('Name must not be empty');
@@ -27,7 +35,7 @@ const ProductsSchema = new mongoose.Schema({
 
   price: {
     type: Number,
-    required: true,
+    // required: true,
     validate(value) {
       if (value <= 1) {
         throw new Error('Price must be greater than 0');
@@ -46,7 +54,7 @@ const ProductsSchema = new mongoose.Schema({
 
   quantity: {
     type: Number,
-    required: true,
+    // required: true,
     validate(value) {
       if (value <= 0) {
         throw new Error('Quantity must be greater than 0');
@@ -62,6 +70,26 @@ const ProductsSchema = new mongoose.Schema({
     },
   },
 
+  sku: {
+    type: String,
+    trim: true,
+    maxlength: 32,
+    validate(value) {
+      if (value.length < 3) {
+        throw new Error('SKU must be at least 3 characters long');
+      }
+    },
+  },
+  unit: {
+    type: String,
+    // required: true,
+    validate(value) {
+      if (value === 'unit') {
+        throw new Error('Unit must be a valid unit');
+      }
+    }
+  },
+
   dimensions: [
     {
       length: {
@@ -75,10 +103,6 @@ const ProductsSchema = new mongoose.Schema({
       },
     },
     {
-      unit: {
-        type: String,
-        enum:units.unitRules.set,
-      },
     },
   ],
 
@@ -118,8 +142,8 @@ const ProductsSchema = new mongoose.Schema({
   },
 
   date: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: formattedDate,
     validate(value) {
       if (value > Date.now()) {
         throw new Error('Date cannot be in the future');
@@ -127,17 +151,11 @@ const ProductsSchema = new mongoose.Schema({
     },
   },
 
-  // brand: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Brands',
-  //   required: true,
-  //   validate(values) {
-  //     if (values.name > 3) {
-  //       throw new Error('Brands must be least 3 letters');
-  //     }
-  //   },
-  // },
-
+  brand: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'brand',
+  },
+  ],
   isbn: {
     type: String,
     trim: true,
@@ -218,6 +236,11 @@ const ProductsSchema = new mongoose.Schema({
         trim: true,
       },
 
+      category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'category',
+      },
+
       tax: {
         type: Number,
         validate(value) {
@@ -233,6 +256,11 @@ const ProductsSchema = new mongoose.Schema({
     },
   ],
 
+},
+  {
+    timestamps: {
+      // $gt: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    },
 });
 
 ProductsSchema.plugin(toJSON);
@@ -243,6 +271,6 @@ ProductsSchema.statics.findByName = async function (name, excludeId) {
   return !!product;
 };
 
-const Products = mongoose.model('Products', ProductsSchema);
+const Products = mongoose.model('products', ProductsSchema);
 
 export default Products;

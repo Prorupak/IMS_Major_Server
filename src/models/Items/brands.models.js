@@ -29,6 +29,6 @@ BrandsSchema.statics.findByName = async function (name, excludeId) {
   return !!brand;
 };
 
-const Brands = mongoose.model('Brands', BrandsSchema);
+const Brands = mongoose.model('brand', BrandsSchema);
 
 export default Brands;

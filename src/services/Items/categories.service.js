@@ -1,18 +1,20 @@
 import httpStatus from 'http-status';
 import Category from '../../models/Items/categories.models.js';
+import Products from '../../models/Items/products.models.js';
 import ApiError from '../../utils/ApiError.js';
 
- const createCategory = async (categoryBody) => {
-  console.log('categoryBody===', categoryBody.name);
+const createCategory = async (products, categoryBody) => {
   const { name } = categoryBody;
   if (await Category.findByName(name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Category name already Taken');
   }
-  return Category.create(categoryBody);
+
+  return Category.insertMany(categoryBody);
 };
 
- const getCategory = async (category) => {
-   const categories = await Category.find({ category }).populate('products');
+const getCategory = async (category) => {
+  const categories = await Category.find({ category })
+    .populate('products')
   return categories;
 };
 
@@ -21,7 +23,30 @@ import ApiError from '../../utils/ApiError.js';
   return product;
 };
 
- const getCategoryById = async (id) => Category.findById(id);
+const getCategoryById = async (id) => {
+  const category = Category.findById(id).populate('products');
+  return category;
+}
+
+const getCategoryByProduct = async (id) => {
+  const categories = await Category.findById(id)
+    .populate('products')
+    .populate('brand')
+    .exec()
+  console.log('category===', categories.products);
+  return categories;
+}
+
+const createCategoryByProduct = async (id, category) => {
+  const categories = await Category.findById(id);
+  const catProduct = new Products(category);
+  catProduct.category = categories;
+  await catProduct.save();
+  categories.products.push(catProduct);
+  await categories.save();
+  console.log('category===', catProduct);
+  return categories;
+}
 
  const updateByCategoryId = async (updateCategory, id) => {
   console.log(id);
@@ -57,6 +82,8 @@ export default {
   getCategory,
   getCategoryByName,
   getCategoryById,
+  getCategoryByProduct,
   updateByCategoryId,
+  createCategoryByProduct,
   deleteByCategoryId,
 };

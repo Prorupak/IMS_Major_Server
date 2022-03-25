@@ -18,3 +18,4 @@ router.use('/categories', categoryRoutes);
 router.use('/brands', brandRoutes);
 
 export default router;
+

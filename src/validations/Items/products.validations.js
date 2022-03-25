@@ -5,7 +5,9 @@ const createProduct = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     quantity: Joi.number().required().default(1),
-    date: Joi.date().default(Date.now()),
+    unit: Joi.string().required(),
+    sku: Joi.string(),
+    date: Joi.date(),
     price: Joi.number().required(),
     status: Joi.string().valid('inStock', 'outStock', 'overStock', 'delivered', 'pending', 'canceled').default('inStock'),
     image: Joi.string(),
@@ -16,7 +18,10 @@ const getProducts = {
   query: Joi.object().keys({
     name: Joi.string(),
     quantity: Joi.number().default(1),
-    date: Joi.string().default(Date.now),
+    unit: Joi.string(),
+
+    sku: Joi.string(),
+    date: Joi.string(),
     price: Joi.number(),
     status: Joi.string(),
     image: Joi.string(),

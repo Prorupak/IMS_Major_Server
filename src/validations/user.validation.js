@@ -8,6 +8,7 @@ import {objectId, password} from './custom.validation.js';
     password: Joi.string().custom(password),
     countries: Joi.string(),
     phone: Joi.string(),
+    history: Joi.string(),
     role: Joi.string().valid('user', 'admin'),
   }),
 };

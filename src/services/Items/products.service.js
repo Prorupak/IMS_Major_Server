@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import Brands from '../../models/Items/brands.models.js';
 import Products from '../../models/Items/products.models.js';
 import ApiError from '../../utils/ApiError.js';
 
@@ -10,7 +11,7 @@ const createProduct = async (productBody) => {
 };
 
 const getProducts = async (products) => {
-  const product = await Products.find({ products });
+  const product = await Products.find({ products }).populate('brand');
   return product;
 };
 
@@ -23,6 +24,26 @@ const getProductById = async (id) => {
   const product = await Products.findById(id);
   return product;
 };
+
+
+const getProductByBrand = async (id) => {
+  const products = await Products.findById(id).populate('brand');
+  console.log('category===', products.brand);
+  return products;
+}
+
+const createBrandByProduct = async (id, product) => {
+  const products = await Products.findById(id);
+  const catProduct = new Brands(product);
+  catProduct.product = products;
+  await catProduct.save();
+  products.brand.push(catProduct);
+  await products.save();
+  console.log('category===', catProduct);
+  return products;
+}
+
+
 
 const updateProductById = async (id, updateProduct) => {
   const product = await getProductById(id);
@@ -57,6 +78,8 @@ export default {
   getProducts,
   getProductByName,
   getProductById,
+  getProductByBrand,
+  createBrandByProduct,
   updateProductById,
   deleteProductById,
 };

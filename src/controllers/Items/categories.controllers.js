@@ -5,12 +5,14 @@ import {categoriesService} from '../../services/index.js';
 import Category from '../../models/Items/categories.models.js';
 
 const createCategory = catchAsync(async (req, res) => {
-  const category = await categoriesService.createCategory(req.body);
+  const { products } = req.body;
+  const category = await categoriesService.createCategory(products, req.body);
   res.status(httpStatus.CREATED).json(category);
 });
 
 const getAllCategory = catchAsync(async (req, res) => {
-  const category = await categoriesService.getCategory(req.body);
+  const { products } = req.body;
+  const category = await categoriesService.getCategory(products, req.body);
   res.json(category);
 });
 
@@ -24,6 +26,20 @@ const getCategoryById = catchAsync(async (req, res) => {
   }
   res.json(category);
 });
+
+const getCategoryByProduct = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const category = await categoriesService.getCategoryByProduct(id);
+  res.json(category.products);
+})
+
+const createCategoryByProduct = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const category = await categoriesService.createCategoryByProduct(id, req.body);
+  // console.log("category===", category);
+  res.json(category);
+})
+
 
 const updateCategoryById = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -44,5 +60,7 @@ export default {
   getAllCategory,
   getCategoryById,
   updateCategoryById,
+  getCategoryByProduct,
+  createCategoryByProduct,
   deleteCategoryById,
 };
