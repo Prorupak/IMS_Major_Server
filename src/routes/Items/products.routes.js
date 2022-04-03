@@ -23,7 +23,7 @@ router
 router
   .route('/:id')
   .get(validate(productsValidation.getProductsById), productsControllers.getProductById)
-  .put(validate(productsValidation.updateProductsById), productsControllers.updateProductById)
+  .put( productsControllers.updateProductById)
   .delete(validate(productsValidation.deleteProductsById), productsControllers.deleteProductById);
 
 router

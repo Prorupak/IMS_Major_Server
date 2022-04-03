@@ -24,7 +24,9 @@ const getCategory = async (category) => {
 };
 
 const getCategoryById = async (id) => {
+  console.log('id===', id);
   const category = Category.findById(id).populate('products');
+  // console.log('category', category);
   return category;
 }
 
@@ -48,7 +50,7 @@ const createCategoryByProduct = async (id, category) => {
   return categories;
 }
 
- const updateByCategoryId = async (updateCategory, id) => {
+ const updateByCategoryId = async (id, updateCategory) => {
   console.log(id);
   const category = await getCategoryById(id);
   if (!category) {
@@ -68,6 +70,7 @@ const createCategoryByProduct = async (id, category) => {
 
  const deleteByCategoryId = async (id) => {
   const category = await getCategoryById(id);
+  console.log('category===', category);
   if (!category) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'category not found');
   }

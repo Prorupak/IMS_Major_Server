@@ -6,8 +6,10 @@ import Category from '../../models/Items/categories.models.js';
 
 const createCategory = catchAsync(async (req, res) => {
   const { products } = req.body;
+   const success = 'Category successfully Added';
   const category = await categoriesService.createCategory(products, req.body);
-  res.status(httpStatus.CREATED).json(category);
+  // res.status(httpStatus.CREATED).json(category);
+  res.status(httpStatus.CREATED).json({category, success});
 });
 
 const getAllCategory = catchAsync(async (req, res) => {
@@ -18,7 +20,7 @@ const getAllCategory = catchAsync(async (req, res) => {
 
 const getCategoryById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  console.log("catId", id);
   const category = await categoriesService.getCategoryById(id);
   console.log(category);
   if (!category) {
@@ -29,8 +31,9 @@ const getCategoryById = catchAsync(async (req, res) => {
 
 const getCategoryByProduct = catchAsync(async (req, res) => {
   const { id } = req.params;
+  console.log('id===', id);
   const category = await categoriesService.getCategoryByProduct(id);
-  res.json(category.products);
+  res.json(category);
 })
 
 const createCategoryByProduct = catchAsync(async (req, res) => {
@@ -43,14 +46,14 @@ const createCategoryByProduct = catchAsync(async (req, res) => {
 
 const updateCategoryById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  console.log('update', id);
   const category = await categoriesService.updateByCategoryId(id, req.body);
   console.log(category);
   res.status(httpStatus.CREATED).json(category);
 });
 
 const deleteCategoryById = catchAsync(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   await categoriesService.deleteByCategoryId(id);
   res.status(httpStatus.NO_CONTENT).json();
 });

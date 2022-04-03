@@ -90,21 +90,13 @@ const ProductsSchema = new mongoose.Schema({
     }
   },
 
-  dimensions: [
-    {
-      length: {
-        type: Number,
-      },
-      width: {
-        type: Number,
-      },
-      height: {
-        type: Number,
-      },
-    },
-    {
-    },
-  ],
+  dimensions: {
+    type: String,
+  },
+
+  dUnit: {
+    type: String,
+  },
 
   weight: {
     type: Number,
@@ -122,6 +114,10 @@ const ProductsSchema = new mongoose.Schema({
         throw new Error('Weight must be an integer');
       }
     },
+  },
+
+  wUnit: {
+    type: String,
   },
 
   image: {
@@ -151,11 +147,13 @@ const ProductsSchema = new mongoose.Schema({
     },
   },
 
-  brand: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'brand',
+  brand: {
+   type: String
   },
-  ],
+
+  manufacturer: {
+    type: String
+  },
   isbn: {
     type: String,
     trim: true,
@@ -182,13 +180,6 @@ const ProductsSchema = new mongoose.Schema({
         },
       },
 
-      account: {
-        type: String,
-        enum: accountData.accountItems.set,
-        default: 'Income',
-        required: true,
-      },
-
       description: {
         type: String,
         trim: true,
@@ -209,7 +200,7 @@ const ProductsSchema = new mongoose.Schema({
     },
   ],
 
-  purchaseInformation: [
+  PurchaseInformation: [
     {
       costPrice: {
         type: Number,
@@ -225,20 +216,9 @@ const ProductsSchema = new mongoose.Schema({
         },
       },
 
-      account: {
-        type: String,
-        enum: accountData.purchaseItems.set,
-        required: true,
-      },
-
       description: {
         type: String,
         trim: true,
-      },
-
-      category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'category',
       },
 
       tax: {

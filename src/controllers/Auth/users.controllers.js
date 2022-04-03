@@ -4,8 +4,9 @@ import ApiError from '../../utils/ApiError.js';
 import usersService from '../../services/Auth/users.service.js';
 
   const createUser = catchAsync(async (req, res) => {
+     const success = 'Successfully Registered';
   const user = await usersService.createUser(req.body);
-  res.status(httpStatus.CREATED).json(user);
+  res.status(httpStatus.CREATED).json({user, success});
 });
 
   const getAllUsers = catchAsync(async (req, res) => {

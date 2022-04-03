@@ -15,7 +15,7 @@ router
 router
   .route('/:id')
   .get(validate(categoriesValidation.getCategoryById), categoriesControllers.getCategoryById)
-    .put(validate(categoriesValidation.updateCategoryById), categoriesControllers.updateCategoryById)
+    .put(categoriesControllers.updateCategoryById)
     .delete(validate(categoriesValidation.deleteCategoryById), categoriesControllers.deleteCategoryById);
 
 router
