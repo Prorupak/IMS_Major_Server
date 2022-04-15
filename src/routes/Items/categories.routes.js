@@ -9,12 +9,12 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(validate(categoriesValidation.createCategory), categoriesControllers.createCategory)
-    .get(validate(categoriesValidation.getCategory), categoriesControllers.getAllCategory);
+  .post( categoriesControllers.createCategory)
+    .get( categoriesControllers.getAllCategory);
 
 router
   .route('/:id')
-  .get(validate(categoriesValidation.getCategoryById), categoriesControllers.getCategoryById)
+  .get( categoriesControllers.getCategoryById)
     .put(categoriesControllers.updateCategoryById)
     .delete(validate(categoriesValidation.deleteCategoryById), categoriesControllers.deleteCategoryById);
 

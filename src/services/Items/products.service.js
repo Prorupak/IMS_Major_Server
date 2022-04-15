@@ -51,9 +51,6 @@ const updateProductById = async (id, updateProduct) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Products Not Listed');
   }
 
-  if (updateProduct.name && (await Products.findByName(updateProduct.name, id))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'product already Listed');
-  }
   Object.assign(product, updateProduct);
 
   await product.save();

@@ -4,14 +4,15 @@ import ApiError from '../../utils/ApiError.js';
 import {productsService} from '../../services/index.js'
 
 const createProduct = catchAsync(async (req, res) => {
+  const success = "Product created successfully";
   const product = await productsService.createProduct(req.body);
-  res.status(httpStatus.CREATED).json(product);
+  res.status(httpStatus.CREATED).json({product, success});
 });
 
 const getAllProducts = catchAsync(async (req, res) => {
   const product = await productsService.getProducts(req.body);
   console.log(product);
-  res.json(product);
+  res.send(product);
 });
 
 const getProductById = catchAsync(async (req, res) => {

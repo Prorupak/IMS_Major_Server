@@ -17,6 +17,7 @@ var day = pad2(date.getDate());//day (1-31)
 var year = date.getFullYear();
 
 var formattedDate = year + "/" + month + "/" + day;
+
 const ProductsSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -33,41 +34,9 @@ const ProductsSchema = new mongoose.Schema({
     },
   },
 
-  price: {
-    type: Number,
-    // required: true,
-    validate(value) {
-      if (value <= 1) {
-        throw new Error('Price must be greater than 0');
-      }
-
-      if (isNaN(value)) {
-        throw new Error('Price must be a number');
-      }
-    },
-  },
-
   description: {
     type: String,
     trim: true,
-  },
-
-  quantity: {
-    type: Number,
-    // required: true,
-    validate(value) {
-      if (value <= 0) {
-        throw new Error('Quantity must be greater than 0');
-      }
-
-      if (isNaN(value)) {
-        throw new Error('Quantity must be a number');
-      }
-
-      if (value % 1 !== 0) {
-        throw new Error('Quantity must be an integer');
-      }
-    },
   },
 
   sku: {
@@ -80,9 +49,9 @@ const ProductsSchema = new mongoose.Schema({
       }
     },
   },
+
   unit: {
     type: String,
-    // required: true,
     validate(value) {
       if (value === 'unit') {
         throw new Error('Unit must be a valid unit');
@@ -90,35 +59,29 @@ const ProductsSchema = new mongoose.Schema({
     }
   },
 
-  dimensions: {
-    type: String,
-  },
-
-  dUnit: {
-    type: String,
-  },
-
-  weight: {
-    type: Number,
-    trim: true,
-    validate(value) {
-      if (value <= 0) {
-        throw new Error('Weight must be greater than 0');
-      }
-
-      if (isNaN(value)) {
-        throw new Error('Weight must be a number');
-      }
-
-      if (value % 1 !== 0) {
-        throw new Error('Weight must be an integer');
-      }
+  dimensions: [{
+    length: {
+      type: String,
     },
-  },
+    breadth: {
+      type: String,
+    },
+    height: {
+      type: String,
+    },
+    dUnit: {
+      type: String,
+    }
+  }],
 
-  wUnit: {
-    type: String,
-  },
+  weight:[ {
+    amount: {
+      type: String,
+    },
+    wUnit: {
+      type: String,
+    }
+  }],
 
   image: {
     type: String,
@@ -154,16 +117,58 @@ const ProductsSchema = new mongoose.Schema({
   manufacturer: {
     type: String
   },
-  isbn: {
-    type: String,
-    trim: true,
-    validate(value) {
-      if (!validator.isISBN(value)) {
-        throw new Error('ISBN is invalid');
-      }
-    },
+
+  inventoryToggle: {
+    type: Boolean,
+    default: true,
   },
 
+  purchaseToggle: {
+    type: Boolean,
+    default: true,
+  },
+
+  saleToggle: {
+    type: Boolean,
+    default: true,
+  },
+  
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  updatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  deletedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+
+    inventoryTracking: [
+      {
+        inventoryAccount: {
+          type: String,
+          trim: true,
+        },
+        openingStock: {
+          type: String,
+          trim: true,
+        },
+        openingStockRate: {
+          type: String,
+        },
+        reorderPoint: {
+          type: String,
+          trim: true,
+        },
+        preferredVendor: {
+          type: String,
+          trim: true,
+        }
+      }
+    ],
   SalesInformation: [
     {
       sellingPrice: {
@@ -180,9 +185,12 @@ const ProductsSchema = new mongoose.Schema({
         },
       },
 
+      account: {
+        type: String,
+      },
+
       description: {
         type: String,
-        trim: true,
       },
 
       tax: {
@@ -216,9 +224,12 @@ const ProductsSchema = new mongoose.Schema({
         },
       },
 
+      account: {
+        type: String,
+      },
+
       description: {
         type: String,
-        trim: true,
       },
 
       tax: {
