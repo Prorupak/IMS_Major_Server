@@ -15,15 +15,161 @@ var year = date.getFullYear();
 var formattedDate = year + "/" + month + "/" + day;
 
 const customerSchema = new mongoose.Schema({
-     name: {
+     customerType: {
            type: String,
-               trim: true,
-               required: true,
+           default: 'Individual',
      },
+     
+     primaryContact: [{
+          salutation: {
+               type: String,
+               trim: true,
+          },
+          firstName: {
+               type: String,
+               trim: true,
+          },
+          lastName: {
+               type: String,
+               trim: true,
+          },
+     }],
+
+     companyName: {
+          type: String,
+          trim: true,
+     },
+
+     customerDisplayName: {
+          type: String,
+          trim: true,
+          required: true,
+     },
+     
+     email: {
+          type: String,
+          trim: true,
+     },
+
+     phone: {
+          type: String,
+          trim: true,
+     },
+     
+     website: {
+          type: String,
+          trim: true,
+     },
+
+     otherDetails: [{
+          currency: {
+               type: String,
+               trim: true,
+               default: 'NPR',
+          },
+          taxRate: {
+               type: String,
+               trim: true,
+               default: '0',
+          },
+          paymentTerms: {
+               type: String,
+               trim: true,
+               default: 'Net 30',
+          },
+          twitter: {
+               type: String,
+               trim: true,
+          },
+          facebook: {
+               type: String,
+               trim: true,
+          },
+     }],
+     address: [{
+          billingAddress: [{
+               attention: {
+                    type: String,
+                    trim: true,
+               },
+               country: {
+                    type: String,
+                    trim: true,
+                    default: 'Nepal',
+               },
+               addressLine1: {
+                    type: String,
+                    trim: true,
+               },
+               addressLine2: {
+                    type: String,
+                    trim: true,
+               },
+               city: {
+                    type: String,
+                    trim: true,
+               },
+               state: {
+                    type: String,
+                    trim: true,
+               },
+               zip: {
+                    type: String,
+                    trim: true,
+               },
+               phone: {
+                    type: Number,
+               }
+          }],
+          shippingAddress: [{
+                attention: {
+                    type: String,
+                    trim: true,
+               },
+               country: {
+                    type: String,
+                    trim: true,
+                    default: 'Nepal',
+               },
+               addressLine1: {
+                    type: String,
+                    trim: true,
+               },
+               addressLine2: {
+                    type: String,
+                    trim: true,
+               },
+               city: {
+                    type: String,
+                    trim: true,
+               },
+               state: {
+                    type: String,
+                    trim: true,
+               },
+               zip: {
+                    type: String,
+                    trim: true,
+               },
+               phone: {
+                    type: Number,
+               },
+     }]
+     }],
+     date: {
+          type: String,
+          default: formattedDate,
+          validate(value) {
+               if (value > Date.now()) {
+                    throw new Error('Date cannot be in the future');
+               }
+          }
+     }
 },
   {
     timestamps: {
     },
+
 });
 
 customerSchema.plugin(toJSON);
