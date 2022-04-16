@@ -5,6 +5,7 @@ import adminRoutes from './admin.routes.js'
 import productsRoutes from './Items/products.routes.js'
 import categoryRoutes from './Items/categories.routes.js'
 import brandRoutes from './Items/brands.routes.js'
+import customerRoutes from './sales/customer.routes.js'
 import {isAdmin, isLoggedIn} from '../middlewares/index.js'
 const router = express.Router();
 
@@ -15,6 +16,7 @@ router.use('/admin',  adminRoutes);
 router.use('/products',  productsRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/brands', brandRoutes);
+router.use('/customer', customerRoutes);
 
 export default router;
 
