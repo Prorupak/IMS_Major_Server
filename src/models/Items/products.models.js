@@ -169,6 +169,11 @@ const ProductsSchema = new mongoose.Schema({
         }
       }
     ],
+
+    returnable: {
+      type: Boolean,
+      default: true,
+    },
   SalesInformation: [
     {
       sellingPrice: {

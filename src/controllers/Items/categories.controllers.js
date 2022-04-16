@@ -9,7 +9,7 @@ const createCategory = catchAsync(async (req, res) => {
    const success = 'Category successfully Added';
   const category = await categoriesService.createCategory(products, req.body);
   // res.status(httpStatus.CREATED).json(category);
-  res.status(httpStatus.CREATED).json({category, success});
+  res.status(httpStatus.CREATED).json(category);
 });
 
 const getAllCategory = catchAsync(async (req, res) => {
