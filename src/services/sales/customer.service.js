@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import Brands from '../../models/Items/brands.models.js';
-import Customer from '../../models/Items/customers.models.js';
+import {Customer} from '../../models/index.js';
 import ApiError from '../../utils/ApiError.js';
 
 const createCustomer = async (customerBody) => {
@@ -56,8 +56,6 @@ export default {
   getAllCustomer,
   getCustomerByName,
   getCustomerById,
-  getProductByBrand,
-  createBrandByProduct,
   updateCustomerById,
   deleteCustomerById,
 };

@@ -8,13 +8,13 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(customerController.createProduct)
-  .get( customerController.getAllProducts);
+  .post(customerController.createCustomer)
+  .get( customerController.getAllCustomer);
 
 router
   .route('/:id')
-  .get(customerController.getProductById)
-  .put( customerController.updateProductById)
-  .delete( customerController.deleteProductById);
+  .get(customerController.getCustomerById)
+  .put( customerController.updateCustomerById)
+  .delete( customerController.deleteCustomerById);
 
 export default router;
