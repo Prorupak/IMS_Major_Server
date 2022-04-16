@@ -15,10 +15,10 @@ const getAllCustomer = catchAsync(async (req, res) => {
   res.send(customer);
 });
 
-const getCustomerByID = catchAsync(async (req, res) => {
+const getCustomerById = catchAsync(async (req, res) => {
   const { id } = req.params;
   console.log('id===', req.params.id);
-  const customer = await customerService.getCustomerByID(id);
+  const customer = await customerService.getCustomerById(id);
   if (!customer) {
     throw new ApiError(httpStatus.NOT_FOUND, 'customer is not in list');
   }
@@ -41,7 +41,7 @@ const deleteCustomerById = catchAsync(async (req, res) => {
 export default {
   createCustomer,
   getAllCustomer,
-  getCustomerByID,
+  getCustomerById,
   updateCustomerById,
   deleteCustomerById,
 };
