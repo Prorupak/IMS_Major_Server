@@ -4,9 +4,6 @@ import {Customer} from '../../models/index.js';
 import ApiError from '../../utils/ApiError.js';
 
 const createCustomer = async (customerBody) => {
-  if (await Customer.findByName(customerBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, ['customer already listed']);
-  }
   return Customer.create(customerBody);
 };
 
@@ -31,7 +28,6 @@ const updateCustomerById = async (id, updateCustomer) => {
   if (!customer) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Customer Not Listed');
   }
-
   Object.assign(customer, updateCustomer);
 
   await customer.save();

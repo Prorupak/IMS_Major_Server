@@ -35,10 +35,9 @@ const customerSchema = new mongoose.Schema({
           },
      }],
 
-     companyName: {
-          type: String,
-          trim: true,
-     },
+    company: {
+         type: String
+    },
 
      customerDisplayName: {
           type: String,
