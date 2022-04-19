@@ -171,9 +171,20 @@ const customerSchema = new mongoose.Schema({
      },
 
      comments: [{
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'comments',
-          
+          comment: {
+               type: String,
+               trim: true,
+          },
+          createdBy: {
+               type: String,
+               trim: true,
+               default: 'Admin',
+          },
+          createdAt: {
+               type: String,
+               trim: true,
+               default: moment().format('MMMM Do YYYY, h:mm:ss a'),
+          }
      }]
 },
   {

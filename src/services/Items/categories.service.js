@@ -24,9 +24,7 @@ const getCategory = async (category) => {
 };
 
 const getCategoryById = async (id) => {
-  console.log('id===', id);
   const category = Category.findById(id).populate('products');
-  // console.log('category', category);
   return category;
 }
 
@@ -35,7 +33,6 @@ const getCategoryByProduct = async (id) => {
     .populate('products')
     .populate('brand')
     .exec()
-  console.log('category===', categories.products);
   return categories;
 }
 

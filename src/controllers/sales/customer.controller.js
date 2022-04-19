@@ -10,7 +10,8 @@ const createCustomer = catchAsync(async (req, res) => {
 });
 
 const createCommentsByID = catchAsync(async (req, res) => {
-  const customer = await customerService.createCommentsById(req.params.id, req.body);
+  const { id } = req.params;
+  const customer = await customerService.createCommentsById(id, req.body);
   res.status(httpStatus.CREATED).json(customer);
 });
 

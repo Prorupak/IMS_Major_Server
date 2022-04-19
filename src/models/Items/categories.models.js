@@ -50,6 +50,7 @@ const CategorySchema = new mongoose.Schema(
     products: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'products',
+      
     }],
 
     brand: [{

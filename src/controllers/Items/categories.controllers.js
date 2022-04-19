@@ -20,9 +20,7 @@ const getAllCategory = catchAsync(async (req, res) => {
 
 const getCategoryById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  console.log("catId", id);
   const category = await categoriesService.getCategoryById(id);
-  console.log(category);
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, ['Category not listed']);
   }
@@ -31,7 +29,6 @@ const getCategoryById = catchAsync(async (req, res) => {
 
 const getCategoryByProduct = catchAsync(async (req, res) => {
   const { id } = req.params;
-  console.log('id===', id);
   const category = await categoriesService.getCategoryByProduct(id);
   res.json(category);
 })
@@ -39,7 +36,6 @@ const getCategoryByProduct = catchAsync(async (req, res) => {
 const createCategoryByProduct = catchAsync(async (req, res) => {
   const { id } = req.params;
   const category = await categoriesService.createCategoryByProduct(id, req.body);
-  // console.log("category===", category);
   res.json(category);
 })
 

@@ -6,31 +6,31 @@ const createCustomer = async (customerBody) => {
   return Customer.create(customerBody);
 };
 
-const createCommentsById = async (id, Comment) => {
+
+// create comments for customer by id and push to customer comments array
+const createCommentsById = async (id, commentsBody) => {
   const customer = await Customer.findById(id);
-  const cusComm = new Comments(Comment);
-  console.log('cusComm===', cusComm.comments);
-  cusComm.comments = customer;
-  console.log('customer===', customer);
-  await cusComm.save();
-
-
-  customer.comments.push(cusComm);
+  if (!customer) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Customer not listed');
+  }
+  const comment = await Comments.create(commentsBody);
+  customer.comments.push(comment);
   await customer.save();
-  console.log('category===', cusComm);
   return customer;
 };
 
+
+
 const getCommentsById = async (id) => {
   const customer = await Customer.findById(id)
-    .populate('comments')
+    .populate('comments', 'comments')
     .exec()
   console.log('category===', customer.products);
   return customer;
 }
 
 const getAllCustomer = async (customers) => {
-  const customer = await Customer.find({ customers })
+  const customer = await Customer.find({ customers }).populate('comments', 'comments');
   return customer;
 };
 
@@ -40,7 +40,10 @@ const getCustomerByName = async (name) => {
 };
 
 const getCustomerById = async (id) => {
-  const customer = await Customer.findById(id);
+  // populate comments array to customer
+  const customer = await Customer.findById(id).populate(
+    'comments',
+  )  
   return customer;
 };
 
