@@ -60,6 +60,12 @@ const customerSchema = new mongoose.Schema({
           trim: true,
      },
 
+     paymentTerms: {
+          type: String,
+          default: "Due 30",
+          trim: true,
+     },
+
      otherDetails: [{
           currency: {
                type: String,
@@ -163,7 +169,22 @@ const customerSchema = new mongoose.Schema({
                     throw new Error('Date cannot be in the future');
                }
           }
-     }
+     },
+
+     comments: [{
+          comment: {
+               type: String,
+               trim: true,
+          },
+          createdAt: {
+               type: String,
+               default: moment().format('MMMM Do YYYY, h:mm:ss a'),
+          },
+          createdBy: {
+               type: String,
+               trim: true,
+          },
+     }]
 },
   {
     timestamps: {
