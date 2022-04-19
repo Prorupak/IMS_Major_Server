@@ -9,6 +9,18 @@ const createCustomer = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).json({customer, success});
 });
 
+const createCommentsByID = catchAsync(async (req, res) => {
+  const customer = await customerService.createCommentsById(req.params.id, req.body);
+  res.status(httpStatus.CREATED).json(customer);
+});
+
+const getCommentsById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  console.log('id===', id);
+  const customer = await customerService.getCommentsById(id);
+  res.json(customer);
+})
+
 const getAllCustomer = catchAsync(async (req, res) => {
   const customer = await customerService.getAllCustomer(req.body);
   console.log(customer);
@@ -40,7 +52,9 @@ const deleteCustomerById = catchAsync(async (req, res) => {
 
 export default {
   createCustomer,
+  createCommentsByID,
   getAllCustomer,
+  getCommentsById,
   getCustomerById,
   updateCustomerById,
   deleteCustomerById,

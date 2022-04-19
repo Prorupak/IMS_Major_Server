@@ -42,7 +42,6 @@ const customerSchema = new mongoose.Schema({
      customerDisplayName: {
           type: String,
           trim: true,
-          required: true,
      },
      
      email: {
@@ -172,18 +171,9 @@ const customerSchema = new mongoose.Schema({
      },
 
      comments: [{
-          comment: {
-               type: String,
-               trim: true,
-          },
-          createdAt: {
-               type: String,
-               default: moment().format('MMMM Do YYYY, h:mm:ss a'),
-          },
-          createdBy: {
-               type: String,
-               trim: true,
-          },
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'comments',
+          
      }]
 },
   {

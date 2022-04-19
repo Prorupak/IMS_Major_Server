@@ -1,11 +1,33 @@
 import httpStatus from 'http-status';
-import Brands from '../../models/Items/brands.models.js';
-import {Customer} from '../../models/index.js';
+import { Customer, Comments} from '../../models/index.js';
 import ApiError from '../../utils/ApiError.js';
 
 const createCustomer = async (customerBody) => {
   return Customer.create(customerBody);
 };
+
+const createCommentsById = async (id, Comment) => {
+  const customer = await Customer.findById(id);
+  const cusComm = new Comments(Comment);
+  console.log('cusComm===', cusComm.comments);
+  cusComm.comments = customer;
+  console.log('customer===', customer);
+  await cusComm.save();
+
+
+  customer.comments.push(cusComm);
+  await customer.save();
+  console.log('category===', cusComm);
+  return customer;
+};
+
+const getCommentsById = async (id) => {
+  const customer = await Customer.findById(id)
+    .populate('comments')
+    .exec()
+  console.log('category===', customer.products);
+  return customer;
+}
 
 const getAllCustomer = async (customers) => {
   const customer = await Customer.find({ customers })
@@ -51,6 +73,8 @@ export default {
   createCustomer,
   getAllCustomer,
   getCustomerByName,
+  createCommentsById,
+  getCommentsById,
   getCustomerById,
   updateCustomerById,
   deleteCustomerById,

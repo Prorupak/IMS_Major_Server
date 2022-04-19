@@ -5,3 +5,4 @@ export { default as brandsControllers} from './Items/brands.controllers.js';
 export { default as productsControllers} from './Items/products.controllers.js';    
 export { default as categoriesControllers} from './Items/categories.controllers.js';    
 export { default as customerController} from './sales/customer.controller.js';    
+export { default as commentsControllers} from './comments.controllers.js';    

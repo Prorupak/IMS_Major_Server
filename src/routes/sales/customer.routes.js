@@ -17,4 +17,8 @@ router
   .put( customerController.updateCustomerById)
   .delete( customerController.deleteCustomerById);
 
+  router
+  .route('/:id/comments')
+  .get(customerController.getCommentsById)
+  .post(customerController.createCommentsByID);
 export default router;
